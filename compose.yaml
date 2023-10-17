@@ -1,0 +1,27 @@
+volumes:
+  app:
+    driver: local
+    driver_opts:
+      device: /home/ubuntu/mqtt-sniffer/app
+      type: none
+      o: bind
+  certificate:
+    driver: local
+    driver_opts:
+      device: /home/ubuntu/mqtt-sniffer/certificate
+      type: none
+      o: bind
+  logs:
+    driver: local
+    driver_opts:
+      device: /home/ubuntu/mqtt-sniffer/logs
+      type: none
+      o: bind
+
+services:
+  app:
+    build: .
+    volumes:
+      - app:/sniffer/app
+      - certificate:/sniffer/certificate
+      - logs:/sniffer/logs
