@@ -1,6 +1,6 @@
 FROM python:3.10-alpine
 
-WORKDIR /sniffer
+WORKDIR /mqtt-sniffer
 
 RUN mkdir app
 RUN mkdir certificate

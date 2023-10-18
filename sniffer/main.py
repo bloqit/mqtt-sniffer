@@ -9,8 +9,8 @@ log_dir = "logs"
 sniffer_log_file = 'sniffer_log_file.json'
 sniffer_app_log_file = 'sniffer_app_log_file.json'
 
-sniffer_logger = Logger("sniffer_log", log_dir, sniffer_log_file)
-sniffer_app_logger = Logger("sniffer_app", log_dir, sniffer_app_log_file)
+sniffer_logger = Logger("sniffer_log", log_dir, sniffer_log_file, 5, 10)
+sniffer_app_logger = Logger("sniffer_app", log_dir, sniffer_app_log_file, 15, 1)
 
 def set_exit_handler(func):
     signal.signal(signal.SIGTERM, func)
@@ -22,7 +22,6 @@ def on_exit(sig, func=None):
     sys.exit(1)
 
 def on_message(client, userdata, msg):
-    sniffer_app_logger.info("Message received on topic={0} qos={1}.".format(msg.topic, msg.qos))
     sniffer_logger.info('Message Received', extra={'topic': msg.topic, 'payload': msg.payload.decode()})
 
 if __name__ == "__main__":

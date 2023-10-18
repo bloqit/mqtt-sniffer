@@ -1,8 +1,14 @@
 volumes:
-  app:
+  sniffer:
     driver: local
     driver_opts:
-      device: /home/ubuntu/mqtt-sniffer/app
+      device: /home/ubuntu/mqtt-sniffer/sniffer
+      type: none
+      o: bind
+  data-dog-logs-synchronizer:
+    driver: local
+    driver_opts:
+      device: /home/ubuntu/mqtt-sniffer/data-dog-logs-synchronizer
       type: none
       o: bind
   certificate:
@@ -19,9 +25,14 @@ volumes:
       o: bind
 
 services:
-  app:
-    build: .
+  sniffer:
+    build: ./sniffer
     volumes:
-      - app:/sniffer/app
-      - certificate:/sniffer/certificate
-      - logs:/sniffer/logs
+      - sniffer:/mqtt-sniffer/app
+      - certificate:/mqtt-sniffer/certificate
+      - logs:/mqtt-sniffer/logs
+  data-dog-logs-synchronizer:
+    build: ./data-dog-logs-synchronizer
+    volumes:
+      - data-dog-logs-synchronizer:/data-dog-logs-synchronizer/app
+      - logs:/data-dog-logs-synchronizer/logs

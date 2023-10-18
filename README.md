@@ -1,7 +1,7 @@
-How to install the application on the machine?
+**How to install the application on the machine?**
 
 1. Install Docker Engine following the instructions available [here](https://docs.docker.com/engine/install/ubuntu/).
-2. Clone mqtt sniffer repository in ``/home/ubuntu/mqtt-sniffer`` folder:
+2. Clone the mqtt sniffer repository:
 ```
     cd /home/ubuntu
     git clone https://github.com/bloqit/mqtt-sniffer.git
@@ -21,4 +21,21 @@ How to install the application on the machine?
 ```
     cd /home/ubuntu/mqtt-sniffer/
     sudo docker compose up -d
+```
+
+**How to update the application on the machine?**
+
+1. Stop the docker containers
+```
+    sudo docker stop mqtt-sniffer-app-1
+    sudo docker stop mqtt-sniffer-data-dog-logs-synchronizer-1
+```
+2. Upate the mqtt sniffer repository:
+```
+    git pull
+```
+3. Restart the docker containers.
+```
+    sudo docker start mqtt-sniffer-app-1
+    sudo docker start mqtt-sniffer-data-dog-logs-synchronizer-1
 ```

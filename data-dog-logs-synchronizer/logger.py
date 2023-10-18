@@ -6,21 +6,24 @@ from logging.handlers import RotatingFileHandler
 import json_log_formatter
     
 class Logger: 
-    def __init__(self, name, log_dir, filename, logging_level=logging.DEBUG):
+    def __init__(self, name, log_dir, filename, maxMBytes=1, backupCount=3):
         
         # set log
         formatter = json_log_formatter.JSONFormatter()
 
         self.logger = logging.getLogger(name)
-        self.logger.setLevel(logging_level)
+        self.logger.setLevel(logging.DEBUG)
 
         streamHandler = logging.StreamHandler(sys.stdout)
         streamHandler.setFormatter(formatter)
         self.logger.addHandler(streamHandler)
 
-        rotatingFileHandler = RotatingFileHandler(os.path.join(log_dir, filename), maxBytes=(1*1024*1024), backupCount=1)
+        rotatingFileHandler = RotatingFileHandler(os.path.join(log_dir, filename), maxBytes=(maxMBytes*1024*1024), backupCount=backupCount)
         rotatingFileHandler.setFormatter(formatter)
         self.logger.addHandler(rotatingFileHandler)
+
+    def setLevel(self, logging_level):
+        self.logger.setLevel(logging_level)
 
     def debug(self, msg, extra=None):
         if extra is not None:
